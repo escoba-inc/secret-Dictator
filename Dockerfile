@@ -10,6 +10,7 @@ COPY server.js ./
 COPY public ./public
 
 # Instalamos dependencias
+RUN npm install express
 RUN npm install
 
 # Expone el puerto 3000
