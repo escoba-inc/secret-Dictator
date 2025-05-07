@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tu Rol</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 id="role-title">Tu rol</h1>
+    <p id="role-description">Cargando...</p>
+    <button id="refresh-btn" style="display:none;">Actualizar aliados</button>
+    <br><br>
+    <a class="reset-link" href="/">Volver al inicio</a>
+  </div>
+
+  <script>
+    const name = "__NAME__";
+    const role = "__ROLE__";
+    const allies = "__ALLIES__";
+
+    const title = document.getElementById('role-title');
+    const description = document.getElementById('role-description');
+    const refreshBtn = document.getElementById('refresh-btn');
+
+    if (role === 'liberal') {
+      title.textContent = `${name}, eres Liberal`;
+      description.textContent = 'Tu objetivo es mantener la democracia y detener a los fascistas, veta las leyes fascistas y pasa las leyes liberales!';
+    } else if (role === 'hitler') {
+      title.textContent = `${name}, eres Hitler`;
+      description.textContent = 'Tu objetivo... ya sabes cual es. Toma la presidencia o consigue que aprueben las leyes fascistas. Recuerda que es de vital importancia que no te descubran! Für die Heimat!';
+    } else if (role === 'fascist') {
+      title.textContent = `${name}, eres Fascista`;
+      description.textContent = allies ? `Tus aliados son: ${allies}` : 'Esperando a los demás jugadores...';
+      refreshBtn.style.display = 'inline-block';
+
+      refreshBtn.onclick = () => {
+        window.location.href = `/player?name=${encodeURIComponent(name)}`;
+      };
+    } else {
+      title.textContent = `Error`;
+      description.textContent = `Rol desconocido.`;
+    }
+  </script>
+</body>
+</html>

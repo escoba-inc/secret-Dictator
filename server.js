@@ -21,32 +21,36 @@ app.post('/assign', (req, res) => {
   res.redirect(`/player?name=${encodeURIComponent(name)}`);
 });
 
-// Mostrar rol
+const fs = require('fs');
+
 app.get('/player', (req, res) => {
   const name = req.query.name;
   const player = players[name];
   if (!player) return res.send("Jugador no encontrado.");
 
   const role = player.role;
+  let allies = '';
 
-  if (role === 'liberal') {
-    return res.send(`<h1>${name}, eres Liberal</h1>`);
+  if (role === 'fascist') {
+    allies = Object.keys(players)
+      .filter(n => (players[n].role === 'fascist' || players[n].role === 'hitler') && n !== name)
+      .join(', ');
   }
 
-  if (role === 'hitler') {
-    return res.send(`<h1>${name}, eres Hitler</h1>`);
-  }
+  // Leer y personalizar la plantilla
+  const filePath = path.join(__dirname, 'public', 'role-template.html');
+  fs.readFile(filePath, 'utf8', (err, html) => {
+    if (err) return res.status(500).send("Error cargando plantilla.");
 
-  // Si es fascista, mostrar aliados
-  const fascists = Object.keys(players)
-    .filter(n => players[n].role === 'fascist' || players[n].role === 'hitler')
-    .filter(n => n !== name);
+    const customized = html
+      .replace('__NAME__', name)
+      .replace('__ROLE__', role)
+      .replace('__ALLIES__', allies || '');
 
-  return res.send(`
-    <h1>${name}, eres Fascista</h1>
-    <p>Tus aliados son: ${fascists.join(', ')}</p>
-  `);
+    res.send(customized);
+  });
 });
+
 
 // Reset
 app.get('/reset', (req, res) => {

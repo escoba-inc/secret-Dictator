@@ -2,25 +2,25 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Secret Hitler Setup</title>
+  <title>Secret Hitler - Unirse</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Unirse al juego</h1>
-  <form action="/assign" method="POST">
-    <label for="name">Tu nombre:</label>
-    <input type="text" name="name" required><br><br>
+  <div class="container">
+    <h1>Unirse al juego</h1>
+    <form action="/assign" method="POST">
+      <label for="name">Tu nombre:</label>
+      <input type="text" name="name" required>
 
-    <label for="role">Selecciona tu rol:</label>
-    <select name="role" required>
-      <option value="liberal">Liberal</option>
-      <option value="fascist">Fascista</option>
-      <option value="hitler">Hitler</option>
-    </select><br><br>
+      <label for="role">Selecciona tu rol:</label>
+      <select name="role" required>
+        <option value="liberal">Liberal</option>
+        <option value="fascist">Fascista</option>
+        <option value="hitler">Hitler</option>
+      </select>
 
-    <button type="submit">Ver mi rol</button>
-  </form>
-
-  <br>
-  <a href="/reset">Reiniciar el juego</a>
+      <button type="submit">Jugar!</button>
+    </form>
+  </div>
 </body>
 </html>
